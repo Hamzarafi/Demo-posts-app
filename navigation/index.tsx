@@ -18,8 +18,8 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
+import HomeScreen from "../screens/HomeScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 import {
   RootStackParamList,
   RootTabParamList,
@@ -62,7 +62,7 @@ function RootNavigator() {
         options={{ title: "Oops!" }}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
+        <Stack.Screen name="AddPost" component={ModalScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -79,27 +79,27 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
-          title: "Tab One",
+        name="Home"
+        component={HomeScreen}
+        options={({ navigation }: RootTabScreenProps<"Home">) => ({
+          title: "Home",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate("Modal")}
+              onPress={() => navigation.navigate("AddPost")}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}
             >
               <FontAwesome
-                name="info-circle"
-                size={25}
+                name="plus"
+                size={20}
                 color={Colors[colorScheme].text}
                 style={{ marginRight: 15 }}
               />
@@ -108,10 +108,10 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="Settings"
+        component={SettingsScreen}
         options={{
-          title: "Tab Two",
+          title: "Settings",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
