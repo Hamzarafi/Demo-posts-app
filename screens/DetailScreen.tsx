@@ -1,9 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet } from "react-native";
-import type { RouteProp } from "@react-navigation/native";
 
 import DetailView from "../components/DetailView";
-
 import { Text, View } from "../components/Themed";
 
 interface Props {
@@ -14,7 +12,7 @@ interface Props {
 export default function DetailScreen({ route, navigation }: Props) {
   return (
     <View style={styles.container}>
-      <DetailView item={route.params.item} />
+      <DetailView item={route.params.item} navigation={navigation} />
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
     </View>
   );

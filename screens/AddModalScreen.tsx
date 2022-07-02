@@ -4,10 +4,14 @@ import AddView from "../components/AddView";
 
 import { Text, View } from "../components/Themed";
 
-export default function AddModalScreen() {
+interface Props {
+  navigation: any;
+}
+
+export default function AddModalScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
-      <AddView />
+      <AddView navigation={navigation} />
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />

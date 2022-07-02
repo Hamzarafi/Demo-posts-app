@@ -7,9 +7,10 @@ import { PrimaryColorDark, PrimaryColorLight } from "../../constants/Colors";
 
 interface Props {
   item: PostType;
+  navigation: any;
 }
 
-const DetailView = ({ item }: Props) => {
+const DetailView = ({ item, navigation }: Props) => {
   const { posts, setPosts } = useGlobalContext();
 
   const [editMode, setEditMode] = useState(false);
@@ -158,9 +159,13 @@ const DetailView = ({ item }: Props) => {
       )}
       <View style={{ marginLeft: 20, marginRight: 20 }}>
         <Button title={editMode ? "Save" : "Edit"} onPress={buttonClick} />
-        {editMode && (
+        {editMode ? (
           <View style={{ marginTop: 10 }}>
             <Button title={"Cancel"} onPress={() => setEditMode(false)} />
+          </View>
+        ) : (
+          <View style={{ marginTop: 10 }}>
+            <Button title={"Back"} onPress={() => navigation.goBack()} />
           </View>
         )}
       </View>

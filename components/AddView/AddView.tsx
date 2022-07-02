@@ -5,7 +5,11 @@ import { API_URL } from "../../constants/URLs";
 import { useGlobalContext } from "../../hooks/globalContext";
 import { PrimaryColorDark, PrimaryColorLight } from "../../constants/Colors";
 
-const AddView = () => {
+interface Props {
+  navigation: any;
+}
+
+const AddView = ({ navigation }: Props) => {
   const { posts, setPosts } = useGlobalContext();
 
   const [title, setTitle] = useState<string>("");
@@ -28,6 +32,7 @@ const AddView = () => {
       })
         .then((response) => response.json())
         .then((json) => setPosts([...posts, json]));
+      navigation.goBack();
     } catch (error) {
       alert("Something went wrong");
     }
@@ -103,7 +108,7 @@ const AddView = () => {
           disabled={title == "" || body == "" || user == ""}
         />
         <View style={{ marginTop: 10 }}>
-          <Button title={"Cancel"} onPress={() => {}} />
+          <Button title={"Cancel"} onPress={() => navigation.goBack()} />
         </View>
       </View>
     </View>
