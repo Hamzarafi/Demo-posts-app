@@ -28,6 +28,7 @@ const linking: LinkingOptions<RootStackParamList> = {
         },
       },
       AddPost: "modal",
+      DetailScreen: "modal",
       NotFound: "*",
     },
   },

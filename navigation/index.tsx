@@ -16,7 +16,8 @@ import { ColorSchemeName, Pressable } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import ModalScreen from "../screens/ModalScreen";
+import AddModalScreen from "../screens/AddModalScreen";
+import DetailScreen from "../screens/DetailScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import HomeScreen from "../screens/HomeScreen";
 import SettingsScreen from "../screens/SettingsScreen";
@@ -26,6 +27,8 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function Navigation({
   colorScheme,
@@ -37,7 +40,34 @@ export default function Navigation({
       linking={LinkingConfiguration}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
-      <RootNavigator />
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Root"
+          component={BottomTabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="NotFound"
+          component={NotFoundScreen}
+          options={{ title: "Oops!" }}
+        />
+        <Stack.Group
+          screenOptions={{
+            presentation: "modal",
+            animation: "slide_from_right",
+          }}
+        >
+          <Stack.Screen name="AddPost" component={AddModalScreen} />
+        </Stack.Group>
+        <Stack.Group
+          screenOptions={{
+            presentation: "modal",
+            animation: "slide_from_right",
+          }}
+        >
+          <Stack.Screen name="DetailScreen" component={DetailScreen} />
+        </Stack.Group>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
@@ -46,27 +76,6 @@ export default function Navigation({
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
-function RootNavigator() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Root"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
-      />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="AddPost" component={ModalScreen} />
-      </Stack.Group>
-    </Stack.Navigator>
-  );
-}
 
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
