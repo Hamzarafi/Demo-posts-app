@@ -8,7 +8,6 @@ interface Props {
 }
 
 const ItemTapHandler = (item: PostType, navigation: any) => {
-  // console.log(item.body);
   navigation.navigate("Detail", { item: item });
 };
 
@@ -46,6 +45,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 20,
+    marginRight: 10,
+    marginLeft: 10,
   },
   itemLeft: {
     flexDirection: "column",

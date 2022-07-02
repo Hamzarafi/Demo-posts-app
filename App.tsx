@@ -10,9 +10,12 @@ export default function App() {
   const colorScheme = useColorScheme();
 
   const [posts, setPosts] = useState<PostType[]>([]);
+  const [selectedUser, setSelectedUser] = useState<string>("All");
 
   return (
-    <MyGlobalContext.Provider value={{ posts, setPosts }}>
+    <MyGlobalContext.Provider
+      value={{ posts, setPosts, selectedUser, setSelectedUser }}
+    >
       <SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
         <StatusBar />
