@@ -15,6 +15,17 @@ const DetailView = ({ item }: Props) => {
 
   const buttonClick = () => {
     if (editMode) {
+      if (title == "" || body == "" || user == "") {
+        alert("Please fill in all the fields");
+        return;
+      }
+
+      try {
+        const userId = parseInt(user);
+      } catch (error) {
+        alert("UserId should be a number");
+      }
+
       //save request
       setEditMode(false);
     } else {

@@ -61,7 +61,7 @@ const AddView = () => {
         <Button
           title={"Save"}
           onPress={buttonClick}
-          disabled={title !== "" || body !== "" || user !== ""}
+          disabled={title !== "" && body !== "" && user !== ""}
           color={"grey"}
         />
         <View style={{ marginTop: 10 }}>
