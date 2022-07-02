@@ -1,8 +1,9 @@
-import { Text, View } from "../Themed";
+import { Text, View, TextInput, Button } from "../Themed";
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, TextInput } from "react-native";
+import { StyleSheet } from "react-native";
 import { API_URL } from "../../constants/URLs";
 import { useGlobalContext } from "../../hooks/globalContext";
+import { PrimaryColorDark, PrimaryColorLight } from "../../constants/Colors";
 
 const AddView = () => {
   const { posts, setPosts } = useGlobalContext();
@@ -43,8 +44,13 @@ const AddView = () => {
           style={styles.item}
         >
           <View lightColor="#eee" darkColor="rgba(255,255,255,0.0)">
-            <Text style={styles.label}>Title</Text>
-
+            <Text
+              lightColor={PrimaryColorLight}
+              darkColor={PrimaryColorDark}
+              style={styles.label}
+            >
+              Title
+            </Text>
             <TextInput
               style={styles.input}
               multiline
@@ -55,7 +61,13 @@ const AddView = () => {
               keyboardType="name-phone-pad"
             />
 
-            <Text style={styles.label}>Body</Text>
+            <Text
+              lightColor={PrimaryColorLight}
+              darkColor={PrimaryColorDark}
+              style={styles.label}
+            >
+              Body
+            </Text>
             <TextInput
               style={styles.input}
               multiline
@@ -66,7 +78,13 @@ const AddView = () => {
               keyboardType="name-phone-pad"
             />
 
-            <Text style={styles.label}>User Id</Text>
+            <Text
+              lightColor={PrimaryColorLight}
+              darkColor={PrimaryColorDark}
+              style={styles.label}
+            >
+              User Id
+            </Text>
             <TextInput
               style={styles.input}
               numberOfLines={1}
@@ -82,11 +100,10 @@ const AddView = () => {
         <Button
           title={"Save"}
           onPress={buttonClick}
-          disabled={title == "" && body == "" && user == ""}
-          color={"grey"}
+          disabled={title == "" || body == "" || user == ""}
         />
         <View style={{ marginTop: 10 }}>
-          <Button title={"Cancel"} onPress={() => {}} color={"lightgrey"} />
+          <Button title={"Cancel"} onPress={() => {}} />
         </View>
       </View>
     </View>
