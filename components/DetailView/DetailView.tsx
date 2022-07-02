@@ -1,6 +1,8 @@
 import { Text, View } from "../../components/Themed";
 import React, { useEffect, useState } from "react";
 import { Button, StyleSheet, TextInput } from "react-native";
+import { API_URL } from "../../constants/URLs";
+import { useGlobalContext } from "../../hooks/globalContext";
 
 interface Props {
   item: PostType;
@@ -8,10 +10,20 @@ interface Props {
 
 const DetailView = ({ item }: Props) => {
   const [editMode, setEditMode] = useState(false);
+  const { posts, setPosts } = useGlobalContext();
 
   const [title, setTitle] = useState<string>("");
   const [body, setBody] = useState<string>("");
   const [user, setUser] = useState<string>("");
+  const [post, setPost] = useState<PostType>(item);
+
+  useEffect(() => {
+    if (post) {
+      setTitle(post.title);
+      setBody(post.body);
+      setUser(post.userId);
+    }
+  }, [post]);
 
   const buttonClick = () => {
     if (editMode) {
@@ -22,24 +34,37 @@ const DetailView = ({ item }: Props) => {
 
       try {
         const userId = parseInt(user);
+        fetch(API_URL + `/posts/${item.id}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            id: item.id,
+            title,
+            body,
+            userId,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            setPost(json);
+            let newList = [
+              ...posts.filter((item) => item.id !== json.id),
+              json,
+            ];
+            newList.sort((a, b) => a.id - b.id);
+            setPosts(newList);
+          });
       } catch (error) {
-        alert("UserId should be a number");
+        alert("Something went wrong");
       }
 
-      //save request
       setEditMode(false);
     } else {
       setEditMode(true);
     }
   };
-
-  useEffect(() => {
-    if (item) {
-      setTitle(item.title);
-      setBody(item.body);
-      setUser(item.userId);
-    }
-  }, []);
 
   return (
     <View>
@@ -77,7 +102,7 @@ const DetailView = ({ item }: Props) => {
               <TextInput
                 style={styles.input}
                 numberOfLines={1}
-                onChangeText={(val) => setUser(val)}
+                onChangeText={(val) => setUser(val.replace(/[^0-9]/g, ""))}
                 value={user.toString()}
                 placeholder="User Id"
                 keyboardType="numeric"
@@ -93,20 +118,20 @@ const DetailView = ({ item }: Props) => {
             style={styles.item}
           >
             <View lightColor="#eee" darkColor="rgba(255,255,255,0.0)">
-              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.title}>{post.title}</Text>
               <Text
                 lightColor="gray"
                 darkColor="lightgray"
                 style={styles.textBody}
               >
-                {item.body}
+                {post.body}
               </Text>
               <Text
                 lightColor="gray"
                 darkColor="lightgray"
                 style={styles.textBody}
               >
-                By User: {item.userId}
+                By User: {post.userId}
               </Text>
             </View>
           </View>

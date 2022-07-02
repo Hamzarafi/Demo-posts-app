@@ -1,14 +1,35 @@
 import { Text, View } from "../Themed";
 import React, { useEffect, useState } from "react";
 import { Button, StyleSheet, TextInput } from "react-native";
+import { API_URL } from "../../constants/URLs";
+import { useGlobalContext } from "../../hooks/globalContext";
 
 const AddView = () => {
+  const { posts, setPosts } = useGlobalContext();
+
   const [title, setTitle] = useState<string>("");
   const [body, setBody] = useState<string>("");
   const [user, setUser] = useState<string>("");
 
   const buttonClick = () => {
-    //save request
+    try {
+      const userId = parseInt(user);
+      fetch(API_URL + "/posts", {
+        method: "POST",
+        body: JSON.stringify({
+          title,
+          body,
+          userId,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => setPosts([...posts, json]));
+    } catch (error) {
+      alert("Something went wrong");
+    }
   };
 
   useEffect(() => {}, []);
@@ -49,7 +70,7 @@ const AddView = () => {
             <TextInput
               style={styles.input}
               numberOfLines={1}
-              onChangeText={(val) => setUser(val)}
+              onChangeText={(val) => setUser(val.replace(/[^0-9]/g, ""))}
               value={user.toString()}
               placeholder="User Id"
               keyboardType="numeric"
@@ -61,7 +82,7 @@ const AddView = () => {
         <Button
           title={"Save"}
           onPress={buttonClick}
-          disabled={title !== "" && body !== "" && user !== ""}
+          disabled={title == "" && body == "" && user == ""}
           color={"grey"}
         />
         <View style={{ marginTop: 10 }}>
