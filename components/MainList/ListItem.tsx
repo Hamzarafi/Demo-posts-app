@@ -9,7 +9,7 @@ interface Props {
 
 const ItemTapHandler = (item: PostType, navigation: any) => {
   // console.log(item.body);
-  navigation.navigate("DetailScreen", { item: item });
+  navigation.navigate("Detail", { item: item });
 };
 
 const ListItem = ({ item, navigation }: Props) => {
@@ -28,9 +28,7 @@ const ListItem = ({ item, navigation }: Props) => {
           <Text style={styles.itemText} numberOfLines={1}>
             {item.title}
           </Text>
-          <Text style={styles.itemText} numberOfLines={1}>
-            By User: {item.userId}
-          </Text>
+          <Text style={styles.itemText}>By User: {item.userId}</Text>
         </View>
         <View style={styles.circular}>{/* arrow here */}</View>
       </View>
@@ -53,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   itemText: {
-    maxWidth: "85%",
+    maxWidth: "95%",
   },
   circular: {
     width: 12,

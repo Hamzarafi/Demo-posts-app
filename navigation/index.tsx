@@ -57,7 +57,7 @@ export default function Navigation({
             animation: "slide_from_right",
           }}
         >
-          <Stack.Screen name="AddPost" component={AddModalScreen} />
+          <Stack.Screen name="Add" component={AddModalScreen} />
         </Stack.Group>
         <Stack.Group
           screenOptions={{
@@ -65,7 +65,7 @@ export default function Navigation({
             animation: "slide_from_right",
           }}
         >
-          <Stack.Screen name="DetailScreen" component={DetailScreen} />
+          <Stack.Screen name="Detail" component={DetailScreen} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
@@ -98,10 +98,10 @@ function BottomTabNavigator() {
         component={HomeScreen}
         options={({ navigation }: RootTabScreenProps<"Home">) => ({
           title: "Home",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate("AddPost")}
+              onPress={() => navigation.navigate("Add")}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}
@@ -121,7 +121,7 @@ function BottomTabNavigator() {
         component={SettingsScreen}
         options={{
           title: "Settings",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
         }}
       />
     </BottomTab.Navigator>
