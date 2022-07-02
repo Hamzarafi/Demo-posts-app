@@ -4,11 +4,14 @@ import React, { useEffect, useState } from "react";
 import { Text, View } from "../../components/Themed";
 import ListItem from "./ListItem";
 import { API_URL } from "../../constants/URLs";
+import { useGlobalContext } from "../../hooks/globalContext";
+
 import Axios from "axios";
 
 const MainList = ({ navigation }: any) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [posts, setPosts] = useState<PostType[]>([]);
+
+  const { posts, setPosts } = useGlobalContext();
 
   useEffect(() => {
     getData();
@@ -19,15 +22,11 @@ const MainList = ({ navigation }: any) => {
   );
 
   const getData = () => {
-    let URL_POSTS = API_URL + "/posts";
     setIsLoading(true);
-    console.log("refetching");
 
-    Axios.get(URL_POSTS)
-      .then((response) => {
-        //console.log(response.data);
-        setPosts(response.data);
-      })
+    fetch(API_URL + "/posts")
+      .then((response) => response.json())
+      .then((json) => setPosts(json))
       .finally(() => setIsLoading(false));
   };
 
