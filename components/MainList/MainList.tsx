@@ -66,18 +66,23 @@ const MainList = ({ navigation }: any) => {
       },
       {
         text: "Delete",
-        onPress: () =>
-          fetch(API_URL + `/posts/${rowKey}`, {
-            method: "DELETE",
-          }).then(() => {
-            rowMap[rowKey].closeRow();
-            const newData = [...posts];
-            const prevIndex = posts.findIndex(
-              (element) => element.id === rowKey
-            );
-            newData.splice(prevIndex, 1);
-            setPosts(newData);
-          }),
+        onPress: () => {
+          rowMap[rowKey].closeRow();
+          try {
+            fetch(API_URL + `/posts/${rowKey}`, {
+              method: "DELETE",
+            }).then(() => {
+              const newData = [...posts];
+              const prevIndex = posts.findIndex(
+                (element) => element.id === rowKey
+              );
+              newData.splice(prevIndex, 1);
+              setPosts(newData);
+            });
+          } catch (error) {
+            alert("Something went wrong");
+          }
+        },
       },
     ]);
   };

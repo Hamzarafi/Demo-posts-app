@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   },
   itemLeft: {
     flexDirection: "column",
+    minWidth: "60%",
   },
   itemText: {
     maxWidth: "95%",

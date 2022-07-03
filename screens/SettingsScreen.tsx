@@ -14,7 +14,14 @@ export default function SettingsScreen() {
   const backgroundColor = useThemeColor({}, "background");
 
   useEffect(() => {
-    setUsers(["All", ...new Set(posts.map((item) => item.userId.toString()))]);
+    setUsers([
+      "All",
+      ...new Set(
+        posts
+          .map((item) => item.userId.toString())
+          .sort((a, b) => parseInt(a) - parseInt(b))
+      ),
+    ]);
   }, [posts]);
 
   const renderList = () => {
