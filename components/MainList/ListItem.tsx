@@ -32,7 +32,7 @@ const ListItem = ({ item, navigation }: Props) => {
             <Text style={styles.itemText}>By User: {item.userId}</Text>
           </View>
         </TouchableOpacity>
-        <View style={styles.circular}>{/* arrow here */}</View>
+        <View style={styles.circular}></View>
       </View>
     </View>
   );
