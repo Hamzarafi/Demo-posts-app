@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
     marginBottom: 20,
+    elevation: 5,
   },
   title: {
     fontSize: 20,

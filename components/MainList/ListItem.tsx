@@ -1,5 +1,6 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
+
 import { Text, View } from "../../components/Themed";
 
 interface Props {
@@ -13,25 +14,27 @@ const ItemTapHandler = (item: PostType, navigation: any) => {
 
 const ListItem = ({ item, navigation }: Props) => {
   return (
-    <TouchableOpacity onPress={() => ItemTapHandler(item, navigation)}>
+    <View>
       <View
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
         style={styles.item}
       >
-        <View
-          lightColor="#eee"
-          darkColor="rgba(255,255,255,0.0)"
-          style={styles.itemLeft}
-        >
-          <Text style={styles.itemText} numberOfLines={1}>
-            {item.title}
-          </Text>
-          <Text style={styles.itemText}>By User: {item.userId}</Text>
-        </View>
+        <TouchableOpacity onPress={() => ItemTapHandler(item, navigation)}>
+          <View
+            lightColor="#eee"
+            darkColor="rgba(255,255,255,0.0)"
+            style={styles.itemLeft}
+          >
+            <Text style={styles.itemText} numberOfLines={1}>
+              {item.title}
+            </Text>
+            <Text style={styles.itemText}>By User: {item.userId}</Text>
+          </View>
+        </TouchableOpacity>
         <View style={styles.circular}>{/* arrow here */}</View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
@@ -47,6 +50,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginRight: 10,
     marginLeft: 10,
+    elevation: 5,
   },
   itemLeft: {
     flexDirection: "column",
