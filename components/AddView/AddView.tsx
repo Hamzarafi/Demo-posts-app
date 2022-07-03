@@ -1,6 +1,8 @@
 import { Text, View, TextInput, Button } from "../Themed";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import { API_URL } from "../../constants/URLs";
 import { useGlobalContext } from "../../hooks/globalContext";
 import { PrimaryColorDark, PrimaryColorLight } from "../../constants/Colors";
@@ -41,7 +43,7 @@ const AddView = ({ navigation }: Props) => {
   useEffect(() => {}, []);
 
   return (
-    <View>
+    <KeyboardAwareScrollView>
       <View>
         <View
           lightColor="#eee"
@@ -111,7 +113,7 @@ const AddView = ({ navigation }: Props) => {
           <Button title={"Cancel"} onPress={() => navigation.goBack()} />
         </View>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 

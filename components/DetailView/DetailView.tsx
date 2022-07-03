@@ -1,6 +1,8 @@
 import { Text, View, TextInput, Button } from "../../components/Themed";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import { API_URL } from "../../constants/URLs";
 import { useGlobalContext } from "../../hooks/globalContext";
 import { PrimaryColorDark, PrimaryColorLight } from "../../constants/Colors";
@@ -69,7 +71,7 @@ const DetailView = ({ item, navigation }: Props) => {
   };
 
   return (
-    <View>
+    <KeyboardAwareScrollView>
       {editMode ? (
         <View>
           <View
@@ -169,7 +171,7 @@ const DetailView = ({ item, navigation }: Props) => {
           </View>
         )}
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
